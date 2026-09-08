@@ -11,7 +11,7 @@ export function Modal({ children }: ModalProps) {
   };
 
   return (
-    <div id="modal">
+    <div id="modal" className="hide">
       <div className={styles.fade} onClick={closeModal}></div>
       <div className={styles.modal}>
         <h2>Texto modal</h2>

@@ -15,13 +15,27 @@ interface TaskFormProps {
   btnText: string;
   taskList: ITask[];
   setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
+  task?: ITask | null;
 }
 
-export function TaskForm({ btnText, taskList, setTaskList }: TaskFormProps) {
+export function TaskForm({
+  btnText,
+  taskList,
+  setTaskList,
+  task,
+}: TaskFormProps) {
   // Estados iniciais da tarefa
   const [id, setId] = useState<number>(0);
   const [title, setTitle] = useState<string>("");
   const [difficulty, setDifficulty] = useState<number>(0);
+
+  useEffect(() => {
+    if (task) {
+      setId(task.id);
+      setTitle(task.title);
+      setDifficulty(task.difficulty);
+    }
+  }, [task]);
 
   const addTaskHandle = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();

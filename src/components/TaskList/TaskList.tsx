@@ -6,9 +6,14 @@ import type { ITask } from "../../interfaces/task";
 interface TaskListProps {
   taskList: ITask[];
   handleDelete(id: number): void;
+  handleEdit(task: ITask): void;
 }
 
-export function TaskList({ taskList, handleDelete }: TaskListProps) {
+export function TaskList({
+  taskList,
+  handleDelete,
+  handleEdit,
+}: TaskListProps) {
   return (
     <>
       {taskList.length > 0 ? (
@@ -19,7 +24,7 @@ export function TaskList({ taskList, handleDelete }: TaskListProps) {
               <p>Dificuldade: {task.difficulty}</p>
             </div>
             <div className={styles.actions}>
-              <i className="bi bi-pencil"></i>
+              <i className="bi bi-pencil" onClick={() => handleEdit(task)}></i>
               <i
                 className="bi bi-trash"
                 onClick={() => {
