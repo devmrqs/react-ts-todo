@@ -14,7 +14,7 @@ import type { ITask } from "../../interfaces/task";
 interface TaskFormProps {
   btnText: string;
   taskList: ITask[];
-  setTaskList: React.Dispatch<React.SetStateAction<ITask[]>>;
+  setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
 }
 
 export function TaskForm({ btnText, taskList, setTaskList }: TaskFormProps) {
