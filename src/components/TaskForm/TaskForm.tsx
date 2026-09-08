@@ -6,12 +6,12 @@ interface TaskFormProps {
 
 export function TaskForm({ btnText }: TaskFormProps) {
   return (
-    <form>
-      <div>
+    <form className={styles.form}>
+      <div className={styles.inputContainer}>
         <label htmlFor="title">Titulo:</label>
         <input type="text" name="title" placeholder="Título da tarefa" />
       </div>
-      <div>
+      <div className={styles.inputContainer}>
         <label htmlFor="title">Dificuldade:</label>
         <input
           type="text"
