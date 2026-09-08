@@ -1,11 +1,24 @@
 import styles from "./TaskList.module.css";
 
-interface TaskListProps {}
+// Interface
+import type { ITask } from "../../interfaces/task";
 
-export function TaskList(props: TaskListProps) {
+interface TaskListProps {
+  taskList: ITask[];
+}
+
+export function TaskList({ taskList }: TaskListProps) {
   return (
-    <div>
-      <p>FormList</p>
-    </div>
+    <>
+      {taskList.length > 0 ? (
+        taskList.map((task) => (
+          <div key={task.id}>
+            <p>{task.title}</p>
+          </div>
+        ))
+      ) : (
+        <p>Não há tarefas cadastradas</p>
+      )}
+    </>
   );
 }
