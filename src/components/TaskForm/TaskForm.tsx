@@ -1,9 +1,4 @@
-import {
-  useState,
-  useEffect,
-  type ChangeEvent,
-  type SyntheticEvent,
-} from "react";
+import { useState, type ChangeEvent, type SyntheticEvent } from "react";
 
 // CSS
 import styles from "./TaskForm.module.css";
@@ -16,6 +11,7 @@ interface TaskFormProps {
   taskList: ITask[];
   setTaskList?: React.Dispatch<React.SetStateAction<ITask[]>>;
   task?: ITask | null;
+  handleUpdate?(id: number, title: string, difficulty: number): void;
 }
 
 export function TaskForm({
@@ -23,32 +19,27 @@ export function TaskForm({
   taskList,
   setTaskList,
   task,
+  handleUpdate,
 }: TaskFormProps) {
   // Estados iniciais da tarefa
-  const [id, setId] = useState<number>(0);
-  const [title, setTitle] = useState<string>("");
-  const [difficulty, setDifficulty] = useState<number>(0);
-
-  useEffect(() => {
-    if (task) {
-      setId(task.id);
-      setTitle(task.title);
-      setDifficulty(task.difficulty);
-    }
-  }, [task]);
+  const id = task?.id ?? 0;
+  const [title, setTitle] = useState<string>(task?.title ?? "");
+  const [difficulty, setDifficulty] = useState<number>(task?.difficulty ?? 0);
 
   const addTaskHandle = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const id = Math.floor(Math.random() * 1000);
-    const newTask: ITask = { id, title, difficulty };
+    if (handleUpdate) {
+      handleUpdate(id, title, difficulty);
+    } else {
+      const id = Math.floor(Math.random() * 1000);
+      const newTask: ITask = { id, title, difficulty };
 
-    setTaskList!([...taskList, newTask]);
+      setTaskList!([...taskList, newTask]);
 
-    setTitle("");
-    setDifficulty(0);
-
-    console.log(taskList);
+      setTitle("");
+      setDifficulty(0);
+    }
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
